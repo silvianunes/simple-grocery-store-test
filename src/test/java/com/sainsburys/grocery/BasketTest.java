@@ -88,20 +88,20 @@ class BasketTest {
     }
 
     @Test
-    void ageRestrictedItemPassesWithoutAgeCheck() {
+    void basketWithoutRestrictedItemsPassesRegardlessOfAge() {
+        Item coffee = new Item("1", "Sainsbury's Coffee", 4.50);
+        Basket basket = new Basket(false, 17);
+        basket.addItem(coffee);
+
+        assertTrue(basket.validateAgeRestrictions());
+    }
+
+    @Test
+    void restrictedItemWithNullAgeIsRejectedSafely() {
         Item wine = new Item("2", "Pinot Grigio", 8.00, true);
         Basket basket = new Basket(false, null);
         basket.addItem(wine);
 
         assertFalse(basket.validateAgeRestrictions());
-    }
-
-    @Test
-    void nonAgeRestrictedItemPassesWithoutAgeCheck() {
-        Item coffee = new Item("1", "Sainsbury's Coffee", 4.50);
-        Basket basket = new Basket(false, null);
-        basket.addItem(coffee);
-
-        assertTrue(basket.validateAgeRestrictions());
     }
 }
