@@ -56,10 +56,11 @@ public class Basket {
      */
     public boolean validateAgeRestrictions() {
         boolean hasRestrictedItem = items.stream().anyMatch(Item::isAgeRestricted);
-        if (hasRestrictedItem) {
-            return customerAge != null && customerAge >= 18;
+        if (!hasRestrictedItem) {
+            return true;
         }
-        return true;
+
+        return customerAge != null && customerAge >= 18;
     }
 
     /**
